@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
-
+gem 'spork'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -26,21 +26,15 @@ gem 'jquery-rails'
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
-group :development do
-  gem 'guard-rspec', '~> 2.5.0'
-  gem 'guard-spork', '~> 1.5.0'
-  gem 'rb-fsevent', '~> 0.9'
-end
-
 group :development, :test do
-  gem "rspec-rails", "~> 2.13.0"
-  gem "factory_girl_rails", "~> 4.2.1"
+  gem "rspec-rails", "~> 3.1.0"
+  gem "factory_girl_rails", "~> 4.4.1"
 end
 
 group :test do
-  gem "faker", "~> 1.1.2"
-  gem "capybara", "~> 2.0.2"
-  gem "database_cleaner", "~> 0.9.1"
-  gem "launchy", "~> 2.2.0"
-  gem "shoulda-matchers", "~> 1.4.2"
+  gem "faker", "~> 1.4.3"
+  gem "capybara", "~> 2.4.3"
+  gem "database_cleaner", "~> 1.3.0"
+  gem "launchy", "~> 2.4.2"
+  gem "selenium-webdriver", "~> 2.43.0"
 end
