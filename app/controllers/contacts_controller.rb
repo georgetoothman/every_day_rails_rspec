@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
-  before_filter :authenticate, except: [:index, :show]
+  # before_filter :authenticate, except: [:index, :show]
+  before_action :set_contact, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
   # GET /contacts
