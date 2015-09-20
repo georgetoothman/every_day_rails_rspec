@@ -6,6 +6,12 @@ describe 'User management' do
     sign_in admin
 
     visit root_path
+    click_link 'Log in'
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+    click_button 'Log In'
+
+    visit root_path
     expect{
       click_link 'Users'
       click_link 'New User'

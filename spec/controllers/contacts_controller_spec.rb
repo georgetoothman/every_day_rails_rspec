@@ -22,28 +22,46 @@ describe ContactsController do
   end
 
   shared_examples("public access to contacts") do
-    describe 'GET #index' do
-      before :each do
-        get :index
-      end
+    before :each do
+      @contact = create(:contact,
+        firstname: 'Lawrence',
+        lastname: 'Smith'
+      )
+    end
 
+    describe 'GET #index' do
       it "populates an array of contacts" do
-        expect(assigns(:contacts)).to match_array [contact]
+        get :index
+        expect(assigns(:contacts)).to match_array [@contact]
       end
 
       it "renders the :index view" do
+        get :index
         expect(response).to render_template :index
       end
     end
 
     describe 'GET #show' do
+      # before :each do
+      #   Contact.stub(:find).with(contact.id.to_s).and_return(contact)
+      #   get :show, id: contact
+      # end
+      let(:contact) { build_stubbed(:contact,
+        firstname: 'Lawrence', lastname: 'Smith') }
+
       before :each do
-        Contact.stub(:find).with(contact.id.to_s).and_return(contact)
+        allow(Contact).to receive(:persisted?).and_return(true)
+        allow(Contact).to \
+          receive(:order).with('lastname, firstname').and_return([contact])
+        allow(Contact).to \
+          receive(:find).with(contact.id.to_s).and_return(contact)
+        allow(Contact).to receive(:save).and_return(true)
+
         get :show, id: contact
       end
 
       it "assigns the requested contact to @contact" do
-        expect(assigns(:contact)).to eq contact
+        expect(assigns(:contact)).to eq @contact
       end
 
       it "renders the :show template" do
@@ -170,7 +188,7 @@ describe ContactsController do
 
   describe "admin access" do
     before :each do
-      controller.stub!(:current_user).and_return(admin)
+      set_user_session create(:admin)
     end
 
     it_behaves_like "public access to contacts"

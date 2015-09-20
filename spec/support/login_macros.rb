@@ -1,6 +1,6 @@
 module LoginMacros
   def set_user_session(user)
-    session[:user_id] = controller.stub(:current_user) { user }
+    session[:user_id] = user.id
   end
 
   def sign_in(user)

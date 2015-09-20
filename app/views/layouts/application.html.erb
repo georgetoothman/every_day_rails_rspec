@@ -25,6 +25,7 @@
       [<%= link_to_unless_current letter, contacts_path(letter: letter) %>]
     <% end %>
     [<%= link_to 'All', contacts_path %>]
+    <li><%= link_to "News", news_releases_path %></li>
   </div>
 
   <% flash.each do |name, msg| %>
